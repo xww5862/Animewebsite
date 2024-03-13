@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.video.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.hu.video.entity.Order">
+        <id column="order_id" jdbcType="BIGINT" property="orderId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="price" jdbcType="DOUBLE" property="price" />
+        <result column="user_state_id" jdbcType="INTEGER" property="userStateId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="alipay_id" jdbcType="VARCHAR" property="alipayId" />
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    </resultMap>
+    <select id="querybyid" resultMap="BaseResultMap">
+        select * from t_order where order_id = #{orderId}
+    </select>
+    <insert id="insertOrder" parameterType="com.hu.video.entity.Order">
+        insert into t_order(user_id,price,user_state_id,create_time,alipay_id,pay_time) values(#{userId},#{price},#{userStateId},#{createTime},#{alipayId},#{payTime})
+    </insert>
+    <update id="updateById"  parameterType="com.hu.video.entity.Order">
+        update  t_order set user_id=#{userId},price=#{price},
+            user_state_id=#{userStateId},create_time=#{createTime},
+            alipay_id=#{alipayId},pay_time=#{payTime} where order_id = #{orderId}
+    </update>
+    <select id="getNewOrderId"  resultMap="BaseResultMap">
+        SELECT * FROM t_order ORDER BY order_id DESC LIMIT 1;
+    </select>
+</mapper>

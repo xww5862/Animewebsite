@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.video.mapper.TDanmuMapper">
+    <resultMap id="BaseResultMap" type="com.hu.video.entity.Danmu">
+        <id column="danmu_id" jdbcType="BIGINT" property="danmuId" />
+        <result column="time" jdbcType="DOUBLE" property="time"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="color" jdbcType="BIGINT" property="color"/>
+        <result column="author" jdbcType="BIGINT" property="author"/>
+        <result column="text" jdbcType="VARCHAR" property="text"/>
+        <result column="video_id" jdbcType="BIGINT" property="videoId" />
+    </resultMap>
+    <insert id="save" >
+        insert into t_danmu (time,type,color,author,text,video_id) values (#{time},#{type},#{color},#{author},#{text},#{videoId})
+    </insert>
+    <select id="count" resultType="Integer">
+        SELECT COUNT(*) FROM t_danmu WHERE video_id = #{videoId}
+    </select>
+    <select id="selectAllByVideoId" resultType="com.hu.video.entity.Danmu">
+        select * from t_danmu where video_id = #{videoId}
+    </select>
+</mapper>

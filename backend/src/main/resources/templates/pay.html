@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>支付沙盒</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/xcConfirm.css}"/>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script th:src="@{/static/js/xcConfirm.js}" type="text/javascript"></script>
+    <style>
+        #payButton {
+            background-color: #4CAF50; /* 设置背景颜色 */
+            border: none; /* 去除边框 */
+            color: white; /* 设置字体颜色 */
+            padding: 10px 20px; /* 设置内边距 */
+            text-align: center; /* 设置文本居中 */
+            text-decoration: none; /* 去除文本装饰 */
+            display: inline-block; /* 设置为内联块元素 */
+            font-size: 16px; /* 设置字体大小 */
+            cursor: pointer; /* 设置鼠标样式为手型 */
+            border-radius: 4px; /* 设置边框圆角 */
+        }
+
+        #payButton:hover {
+            background-color: #45a049; /* 鼠标悬停时的背景颜色 */
+        }
+
+        #payButton:active {
+            background-color: #367c39; /* 按钮按下时的背景颜色 */
+        }
+    </style>
+</head>
+<body>
+<h1>测试</h1>
+<button id="payButton">充值</button>
+</body>
+<script>
+
+    $("#payButton").click(function () {
+        window.open(
+            "http://localhost:8081/alipay/pay" +
+            "?userId=" +
+            1 +
+            "&traceNo=" +
+            10000000 +
+            "&totalAmount=" +
+            100 +
+            "&subject=" +
+           "会员充值"
+        );
+
+
+    });
+</script>
+</html>

@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WilWil</title>
+
+
+    <style>
+
+        .user-info {
+            text-align: center;
+        }
+
+        .user-name {
+            font-weight: 800;
+            font-size: 15px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .user-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0px;
+            right: 100px;
+        }
+
+        .myButton1 {
+            top: 79px;
+            position: absolute;
+            background-color: #df0e62;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            right: 78px;
+        }
+
+        .myButton1:hover {
+            background-color: #127681; /* 鼠标悬停时的背景颜色 */
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/static/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/xcConfirm.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/style-starter.css}">
+    <script th:src="@{/static/layui.js}"></script>
+    <script th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/js/xcConfirm.js}" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<!-- header -->
+<header id="site-header" class="w3l-header fixed-top">
+    <!--/nav-->
+    <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+        <div class="container">
+            <h1><a class="navbar-brand" th:href="@{/user/toIndex}">
+                WilWil </a></h1>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <span class="fa icon-expand fa-bars"></span>
+                <span class="fa icon-close fa-times"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/user/toIndex}">主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">关于我们</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- toggle switch for light and dark theme -->
+            <div class="mobile-position">
+                <nav class="navigation">
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox">
+                            <div class="mode-container">
+                                <i class="gg-sun"></i>
+                                <i class="gg-moon"></i>
+                            </div>
+                        </label>
+                    </div>
+                </nav>
+            </div>
+
+<!--            用户的头像和用户名-->
+            <div id="user-details">
+                <img class="user-icon" src="">
+                <p class="user-name"></p>
+            </div>
+<!--            屏蔽功能-->
+            <button id="block" class="myButton1">
+                屏蔽用户
+            </button>
+        </div>
+    </nav>
+    <!--//nav-->
+</header>
+<!-- //header -->
+<section class="w3l-grids">
+    <div class="grids-main py-5">
+        <div class="container py-lg-3">
+            <div class="headerhny-title">
+                <div class="w3l-title-grids">
+                    <div class="headerhny-left">
+                        <h3 class="hny-title">我的视频</h3>
+                    </div>
+                    <div class="headerhny-right text-lg-right">
+                        <!--                        <h4><a class="show-title" href="#">展示全部</a></h4>-->
+                    </div>
+                </div>
+            </div>
+            <div class="w3l-populohny-grids" id="popular">
+
+            </div>
+        </div>
+
+    </div>
+    <div id="what"></div>
+</section>
+
+<footer class="w3l-footer">
+    <section class="footer-inner-main">
+        </div>
+        <div class="below-section">
+            <div class="container">
+                <div class="copyright-footer">
+                    <div class="columns text-lg-left">
+                        <p>&copy; 2023 20jk-Steve.Xu All rights reserved | Designed by</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- copyright -->
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" title="Go to top">
+            <span class="fa fa-arrow-up" aria-hidden="true"></span>
+        </button>
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- /move top -->
+
+    </section>
+</footer>
+<!--//footer-66 -->
+</body>
+
+</html>
+<script th:src="@{/static/js/jquery.magnific-popup.min.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('.popup-with-zoom-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+        $('.popup-with-move-anim').magnificPopup({
+            type: 'inline',
+
+            fixedContentPos: false,
+            fixedBgPos: true,
+
+            overflowY: 'auto',
+
+            closeBtnInside: true,
+            preloader: false,
+
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-slide-bottom'
+        });
+    });
+</script>
+<!--//-->
+<!-- disable body scroll which navbar is in active -->
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('body').toggleClass('noscroll');
+        })
+    });
+</script>
+<!-- disable body scroll which navbar is in active -->
+
+<script>
+
+
+
+    //屏蔽功能
+    $("#block").click(function() {
+    var blockedId = sessionStorage.getItem("clicked_userId");
+    var userId = sessionStorage.getItem("userId");
+        $.ajax({
+            url: "/block/blockOn?userId=" +  userId,
+            type: "post",
+            data: {"blockedId": blockedId},
+            dataType: "JSON",
+            success: function(data) {
+               if (data.message=="已屏蔽"){
+                   window.wxc.xcConfirm("您已经屏蔽了该用户", window.wxc.xcConfirm.typeEnum.warning);
+               }else {
+                   window.wxc.xcConfirm("屏蔽成功", window.wxc.xcConfirm.typeEnum.success);
+               }
+            },
+            error: function() {
+                // 处理错误情况
+                // 示例：显示错误提示
+                window.wxc.xcConfirm("失败", window.wxc.xcConfirm.typeEnum.error);
+            }
+        });
+    });
+
+
+
+
+
+    //根据session拿到clicked_userId，然后得到视频列表
+    $(function () {
+        var urlParams = new URLSearchParams(window.location.search);
+        var userId = urlParams.get('userId');
+
+        $.ajax({
+            type: 'get',
+            url: '/video/getMyVideoListByUserId',
+            dataType: 'json',
+            data:{userId},
+            success: function (data) {
+                if (data.length==0){
+                    var img = $('<img src="../static/img/pre3.png" width="1000px" alt="author image" />')
+                    img.appendTo($('#popular'))
+                    $.ajax({
+                        url : "/user/tUserByuserId",
+                        async : true,
+                        type : "get",
+                        data:{userId},
+                        dataType : "JSON",
+                        error : function() {
+                            window.wxc.xcConfirm("失败", window.wxc.xcConfirm.typeEnum.error);
+                        },
+                        success : function(data) {
+                            console.log(data,'我是data');
+                            var userName = data.userName;
+                            var iconUrl = data.iconUrl;
+
+                            // 显示 userName 和 iconUrl
+                            var userDiv = $('<div class="user-info" />');
+                            var userNameElement = $('<p class="user-name" />').text('用户名：' + userName);
+                            var iconUrlElement = $('<img class="user-icon" />').attr('src', iconUrl);
+                            userNameElement.appendTo(userDiv);
+                            iconUrlElement.appendTo(userDiv);
+                            userDiv.appendTo($('#user-details'));
+                        }
+                    });
+                }else {
+                    var userName = data[0].user.userName;
+                    var iconUrl = data[0].user.iconUrl;
+                    // 显示 userName 和 iconUrl
+                    var userDiv = $('<div class="user-info" />');
+                    var userNameElement = $('<p class="user-name" />').text('用户名：' + userName);
+                    var iconUrlElement = $('<img class="user-icon" />').attr('src', iconUrl);
+                    userNameElement.appendTo(userDiv);
+                    iconUrlElement.appendTo(userDiv);
+                    userDiv.appendTo($('#user-details'));
+                    $.each(data, function (i, val) {
+                        var div1 = $('<div class="item vhny-grid" />')
+                        var div2 = $('<div class="box16" style="width: 254px; height: 383px"/>')
+                        div2.appendTo(div1)
+                        var a3 = $('<a/>')
+                        a3.attr("href", "/video/videoPlay?videoId=" + this.videoId)
+                        a3.appendTo(div2)
+                        var f41 = $('<figure />')
+                        var img5 = $('<img class="img-fluid" style="width: 254px;height: 383px" alt="author image" />')
+                        img5.attr('src', this.thunmbnailUrl)
+                        img5.appendTo(f41)
+                        f41.appendTo(a3)
+                        var div42 = $('<div class="box-content" />')
+                        div42.appendTo(a3)
+                        var h51 = $('<h3 class="title" />')
+                        h51.text(this.videoTitle)
+                        h51.appendTo(div42)
+                        var h52 = $('<h4> <span class="post"><span class="fa fa-clock-o"></span> 5min</span><span class="post fa fa-heart text-right"></span></h4>')
+                        h52.appendTo(div42)
+                        var span43 = $('<span class="fa fa-play video-icon" aria-hidden="true"></span>')
+                        span43.appendTo(a3)
+                        div1.appendTo($('#popular'))
+                    })
+                }
+            }
+        })
+    })
+</script>
+<!-- responsive tabs -->
+
+<script th:src="@{/static/js/easyResponsiveTabs.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Horizontal Tab
+        $('#parentHorizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            tabidentify: 'hor_1', // The tab groups identifier
+            activate: function (event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+    });
+</script>
+<!-- //responsive tabs -->
+<!--/theme-change-->
+<script th:src="@{/static/js/theme-change.js}"></script>
+<!-- //theme-change-->
+<!-- script for owlcarousel -->
+<!-- Template JavaScript -->
+<script th:src="@{/static/js/jquery.magnific-popup.min.js}"></script>
+
+

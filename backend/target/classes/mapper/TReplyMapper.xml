@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.video.mapper.TReplyMapper">
+    <resultMap id="videoReplysWithUser" type="com.hu.video.entity.ReplyAndComment">
+        <id column="reply_id" property="replyId"/>
+        <result column="video_id" property="videoId"/>
+        <result column="comment_id" property="commentId"/>
+        <result column="reply_user_id" property="replyUserId"/>
+        <result column="replied_user_id" property="repliedUserId"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="icon_url" property="iconUrl"/>
+        <result column="replied_user_name" property="repliedUserName"/>
+        <result column="replied_user_icon_url" property="repliedUserIconUrl"/>
+    </resultMap>
+    <select id="getReplyCommentsByCommentId" resultMap="videoReplysWithUser">
+        SELECT R.reply_id, R.video_id, R.comment_id, R.reply_user_id,
+               R.replied_user_id, R.content, R.create_time,
+               U.user_id AS user_id, U.user_name, U.icon_url,
+               R2.user_name AS replied_user_name, R2.icon_url AS replied_user_icon_url
+        FROM t_reply_comment R
+                 JOIN t_user U ON R.reply_user_id = U.user_id
+                 JOIN t_user R2 ON R.replied_user_id = R2.user_id
+        WHERE R.comment_id = #{commentId}
+    </select>
+
+
+    <insert id="addReplyComment" parameterType="com.hu.video.entity.Reply" >
+        insert into t_reply_comment(video_id,comment_id,reply_user_id,replied_user_id,content,create_time) values(#{videoId},#{commentId},#{replyUserId},#{repliedUserId},#{content},#{createTime})
+    </insert>
+</mapper>

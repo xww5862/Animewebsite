@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WilWil</title>
+    <link rel="stylesheet" th:href="@{/static/tool4/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/css/font_1205629_qkvn3s9pbk.css}">
+    <link rel="stylesheet" th:href="@{/static/css/global.css}">
+    <style>
+
+    .btn-success:hover {
+        color: #fff;
+        background-color: #127681;
+        border-color: #127681;
+        background-color: #127681;
+        border-color: #127681;
+    }
+    .btn-success:active,
+    .btn-success:focus {
+        color: #fff;
+        background-color: #127681 !important;;
+        border-color: #127681 !important;;
+        background-color: #127681 !important;;
+        border-color: #127681 !important;;
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+    <div class="login-container clearfix">
+        <div class="login-left float-left">
+        </div>
+        <div class="login-right float-left">
+            <div class="login-title">
+                <a th:href="@{/user/toLogin}" style="color: #2f2f2f;">登录</a>
+                <span class="active">注册</span>
+            </div>
+            <div class="login-content">
+                <div class="login-item">
+                    <div class="login-item-name">手机号<span class="login-ntf name"></span></div>
+                    <div class="login-item-ipt">
+                        <input type="text" class="form-control username-ipt" placeholder="请输入手机号" id="tel">
+                    </div>
+                </div>
+                <div class="login-item">
+                    <div class="login-item-name">设置密码<span class="login-ntf password"></span></div>
+                    <div class="login-item-ipt">
+                        <input type="password" id="pwd" class="form-control password-ipt" placeholder="请设置密码">
+                    </div>
+                </div>
+                <div class="login-item">
+                    <div class="login-item-name">确认密码<span class="login-ntf password-check"></span></div>
+                    <div class="login-item-ipt">
+                        <input type="password" id="check-password" class="form-control check-password-ipt"
+                               placeholder="请确认密码">
+                    </div>
+                </div>
+                <div class="login-item">
+                    <div class="login-item-name">输入密保<span class="login-ntf name"></span></div>
+                    <div class="login-item-ipt">
+                        <input type="text" id='cproblem' class="form-control username-ipt" placeholder="请输入你最喜欢的书是什么?">
+                    </div>
+                </div>
+                <div style="margin: 10px 0 10px 4px;">
+                    <input type="checkbox" id="read-info">
+                    <label for="read-info">我已阅读</label>
+                    <a href="javascript: void(0)" id="serviceRule">《WilWil在线协议》</a>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-success btn-block" id="submit" type="submit">注&nbsp;&nbsp;册</button>
+                </div>
+
+            </div>
+            <div class="modal fade" id="serviceRuleModal" tabindex="-1" role="dialog" aria-labelledby="submitModalLabel"
+                 aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="submitModalLabel">《WilWil在线服务协议》</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 60vh; overflow: auto;">
+                            <h1>《在线动漫播放网站使用协议》</h1>
+                            <p>欢迎使用本网站提供的在线动漫播放服务。在使用本服务前，请您仔细阅读以下协议：</p>
+
+                            <ol>
+                                <li><strong>用户责任：</strong> 用户应合法使用本网站提供的动漫资源，不得利用本服务进行任何违法、淫秽、侵权等活动。用户需对自己在本网站的行为负责。</li>
+                                <li><strong>版权声明：</strong> 本网站所提供的动漫资源均为合法版权所有，用户在使用过程中不得以任何方式侵犯他人的知识产权，包括但不限于上传、传播受保护的内容。</li>
+                                <li><strong>隐私保护：</strong> 本网站将尽最大努力保护用户隐私，但在用户违反法律法规的情况下，本网站可能根据相关法律要求披露用户信息。</li>
+                                <li><strong>服务中断：</strong> 本网站将尽力保障服务的稳定性和可用性，但不对服务中断、故障承担责任，用户因此遭受的损失需自行承担。</li>
+                                <li><strong>免责声明：</strong> 用户对使用本网站服务的风险自负。本网站不对动漫资源的准确性、合法性、安全性做出担保，用户需自行判断并承担风险。</li>
+                                <li><strong>协议修改：</strong> 本网站有权随时对协议进行修改，修改后的协议将在网站上公布。用户应定期查阅协议内容，对于协议更新后的使用行为视为用户同意修改后的协议。</li>
+                            </ol>
+
+                            <p>在您使用本网站提供的动漫播放服务前，请确保您已详细阅读并理解以上协议内容。如您不同意或无法遵守协议条款，请勿继续使用本服务。如有任何疑问，请联系我们。</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="serviceRuleModalBtn"
+                                    style="width: 120px;">确定
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script th:src="@{/static/layui.js}"></script>
+<script th:src="@{/static/css/layui.css}"></script>
+<script>
+
+    document.getElementById("serviceRule").addEventListener("click", function() {
+        $('#serviceRuleModal').modal('show');
+    });
+    document.getElementById("serviceRuleModalBtn").addEventListener("click", function() {
+        $('#serviceRuleModal').modal('hide');
+        document.getElementById("read-info").checked = true;
+    });
+
+    layui.use(['jquery', 'layer'], function () {
+        var layer = layui.layer
+            , $ = layui.jquery
+
+        $('#cproblem').blur(function () {
+            var button = document.getElementById("submit");
+            var t = $('#cproblem').val().trim()
+            if (t == '' || t == undefined || t == null) {
+                layer.msg('密保不能为空')
+                // 禁用按钮
+                button.disabled = true;
+            } else {
+                button.disabled = false;
+            }
+        })
+
+        $('#check-password').blur(function () {
+            var t = $('#check-password').val()
+            if (t != '' && t != undefined && t != null) {
+                var re = $('#pwd').val()
+                if (t != re) {
+                    layer.msg('前后密码不一致')
+                }
+            }
+        })
+        $('#tel').blur(function () {
+            // 获取按钮元素
+            var button = document.getElementById("submit");
+            var tel = $('#tel').val()
+            var reg = /^1[3|4|5|7|8]\d{9}$/
+            if(!reg.test(tel)) {
+                layer.msg("手机号格式有问题")
+                // 禁用按钮
+                button.disabled = true;
+                return ;
+            }
+            $.ajax({
+                url: '/user/checkTel',
+                type: 'post',
+                dataType: "json",
+                data: {'userTel': tel},
+                success: function (data) {
+                    if (data.res) {
+                        layer.msg('可以注册')
+                        // 启动按钮
+                        button.disabled = false;
+                    } else {
+                        layer.msg('该手机号已存在')
+                        // 禁用按钮
+                        button.disabled = true;
+                    }
+                }
+            })
+        })
+        $('#submit').click(function () {
+            var tel = $('#tel').val();
+            var pwd = $('#pwd').val();
+            var repwd = $('#check-password').val();
+            if (repwd != '' && repwd != undefined && repwd != null) {
+                if (pwd != repwd) {
+                    layer.msg('前后密码不一致')
+                    return;
+                }
+            }
+            if (!$("#read-info").is(":checked")) {
+                // 复选框未勾选，显示提示信息
+                alert("请阅读并勾选协议后登录。");
+                return;
+            }
+            var cproblem = $('#cproblem').val();
+            var obj = {
+                'userTel': tel,
+                'password': pwd,
+                'encryptedProblem': cproblem,
+                'userName': '请填入你的昵称',
+            }
+            $.ajax({
+                url: '/user/userRegister',
+                type: 'post',
+                dataType: "json",
+                data: obj,
+                success: function (data) {
+                    if (data.result) {
+                        layer.msg(data.message,{
+                            icon: 1,
+                            time: 3500
+                        })
+                        window.location.href = "/user/toLogin"
+                    } else {
+                        layer.msg(data.message,{
+                            icon: 1,
+                            time: 3000
+                        })
+                    }
+                }
+            })
+
+        })
+    })
+</script>
+</html>

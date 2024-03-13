@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.video.mapper.CommentMapper">
+    <resultMap id="videoCommentsWithUser" type="com.hu.video.entity.Comment">
+        <id column="comment_id" property="commentId"/>
+        <result column="comment_user_id" property="commentUserId"/>
+        <result column="video_id" property="videoId"/>
+        <result column="content" property="content"/>
+        <result column="create_time" property="createTime"/>
+        <association  property="user" javaType="com.hu.video.entity.TUser">
+            <id column="user_id" jdbcType="BIGINT" property="userId"/>
+            <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+            <result column="user_age" jdbcType="INTEGER" property="userAge"/>
+            <result column="user_sex" jdbcType="VARCHAR" property="userSex"/>
+            <result column="password" jdbcType="VARCHAR" property="password"/>
+            <result column="fan_num" jdbcType="INTEGER" property="fanNum"/>
+            <result column="user_tel" jdbcType="VARCHAR" property="userTel"/>
+            <result column="register_date" jdbcType="TIMESTAMP" property="registerDate"/>
+            <result column="icon_url" jdbcType="VARCHAR" property="iconUrl"/>
+            <result column="state_id" jdbcType="INTEGER" property="stateId"/>
+            <result column="encrypted_problem" jdbcType="VARCHAR" property="encryptedProblem"/>
+        </association>
+        <collection property="replyList" column="comment_id" select="com.hu.video.mapper.TReplyMapper.getReplyCommentsByCommentId"/>
+    </resultMap>
+    <select id="getCommentsByVideoId" resultMap="videoCommentsWithUser">
+        select A.comment_id,A.comment_user_id,A.video_id,A.content,A.create_time,
+               U.user_id as user_id,U.user_name,U.icon_url from t_comment A , t_user U
+        where A.video_id= #{videoId} and A.comment_user_id=U.user_id
+    </select>
+    <insert id="addComment" parameterType="com.hu.video.entity.Comment" >
+        insert into t_comment(comment_user_id,video_id,content,create_time) values(#{commentUserId},#{videoId},#{content},#{createTime})
+    </insert>
+</mapper>

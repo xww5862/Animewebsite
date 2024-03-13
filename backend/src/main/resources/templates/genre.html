@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>WilWil</title>
+	<!-- Template CSS -->
+	<!--<link rel="stylesheet" href="assets/css/style-starter.css">-->
+	<link rel="stylesheet" th:href="@{/static/css/style-starter.css}">
+	<link rel="stylesheet" th:href="@{/static/css/layui.css}">
+	<!-- Template CSS -->
+	<link href="//fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,600&display=swap"
+		rel="stylesheet">
+	<style>
+
+		.pagination {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.pagination ul {
+			list-style: none;
+			display: inline-block;
+			padding: 0;
+			margin: 0; /* Reset default margin */
+			position: absolute;
+			right: 664px;
+		}
+
+		.pagination li {
+			display: inline-block;
+			margin-right: 5px;
+		}
+
+		.pagination a {
+			text-decoration: none;
+			padding: 5px 10px;
+			background-color: #f5f5f5;
+			color: #333;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		.pagination a.active {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+		.pagination a:hover {
+			background-color: #007bff;
+			color: #fff;
+			border-color: #007bff;
+		}
+
+
+
+	</style>
+	<!-- Template CSS -->
+</head>
+
+<body>
+	<!-- header -->
+	<header id="site-header" class="w3l-header fixed-top">
+		<!--/nav-->
+		<nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+			<div class="container">
+				<h1><a class="navbar-brand" th:href="@{/user/toIndex}">
+					WilWil </a></h1>
+				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<!-- <span class="navbar-toggler-icon"></span> -->
+					<span class="fa icon-expand fa-bars"></span>
+					<span class="fa icon-close fa-times"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/user/toIndex}">主页</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">关于我们</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">联系我们</a>
+					</li>
+				</ul>
+
+					<!--/search-right-->
+					<!--/search-right-->
+					<div class="search-right">
+						<a href="#search" class="btn search-hny mr-lg-3 mt-lg-0 mt-4" title="search">搜索 <span
+								class="fa fa-search ml-3" aria-hidden="true"></span></a>
+						<!-- search popup -->
+						<div id="search" class="pop-overlay">
+							<div class="popup">
+								<form th:action="@{/video/search}" method="post" class="search-box">
+									<input type="search" placeholder="Search your Keyword" name="videoTitle"
+										   th:value="${videoTitle}" required="required" autofocus="">
+									<button type="submit" class="btn"><span class="fa fa-search"
+											aria-hidden="true"></span></button>
+								</form>
+								<div class="browse-items">
+									<h3 class="hny-title two mt-md-5 mt-4">WilWil搜索</h3>
+									<ul class="search-items">
+										<li><a href="#">热血</a></li>	
+										<li><a href="#">恋爱</a></li>
+										<li><a href="#">穿越</a></li>
+										<li><a href="#">搞笑</a></li>
+										<li><a href="#">治愈</a></li>
+										<li><a href="#">校园</a></li>
+									</ul>
+								</div>
+							</div>
+							<a class="close" href="#close">×</a>
+						</div>
+						<!-- /search popup -->
+						<!--/search-right-->
+					</div>
+
+
+				</div>
+				<!-- toggle switch for light and dark theme -->
+				<div class="mobile-position">
+					<nav class="navigation">
+						<div class="theme-switch-wrapper">
+							<label class="theme-switch" for="checkbox">
+								<input type="checkbox" id="checkbox">
+								<div class="mode-container">
+									<i class="gg-sun"></i>
+									<i class="gg-moon"></i>
+								</div>
+							</label>
+						</div>
+					</nav>
+				</div>
+				<!-- //toggle switch for light and dark theme -->
+				<div th:unless="${session.user}">
+					<a th:href="@{/user/toLogin}" class="btn btn-primary btn-lg"
+					   style="height: 38px;font-size: 14px;">登录</a>
+				</div>
+				<div th:if="${session.user}">
+					<div>
+						<button style="border-radius:0%;height: 50px;" class="layui-btn layui-btn-primary" id="demo4">
+							<span th:text="${session.user.userName}"></span>
+							<i class="layui-icon">&#xe667;</i>
+							<span id="mySpan"></span>
+							<!--                        未读消息条数显示-->
+						</button>
+					</div>
+
+				</div>
+				<div th:if="${session.user}">
+					<div style="height: 50px;width: 50px;position: relative; margin-left: 10px">
+						<img width="100%" height="100%" th:src="${session.user.iconUrl}">
+					</div>
+				</div>
+			</div>
+		</nav>
+		<!--//nav-->
+	</header>
+	<!-- //header -->
+	<!--/breadcrumbs -->
+	<div class="w3l-breadcrumbs">
+		<nav id="breadcrumbs" class="breadcrumbs">
+			<div class="container page-wrapper">
+				<a th:href="@{/user/toIndex}">主页</a> >> <span class="breadcrumb_last" aria-current="page">结果</span>
+			</div>
+		</nav>
+	</div>
+	<!--//breadcrumbs -->
+	<!--/genre -->
+
+	<!--grids-sec1-->
+	<section class="w3l-grids">
+		<div class="grids-main py-4">
+			<div class="container py-lg-4">
+				<div class="headerhny-title">
+					<h3 class="hny-title">搜索结果</h3>
+				</div>
+				<!--				判断是否为空-->
+				<div th:if="${#lists.isEmpty(videoList)}">
+					<p>
+						<span style="color: red;">请缩短关键词重新搜索,宁可少字,不可错字,</span>
+						如"你和我的倾城时光",只需输入"你和我的"
+					</p>
+				</div>
+				<div class="w3l-populohny-grids">
+					<div class="item vhny-grid"  th:each="item: ${pageInfo.list}">
+						<div class="box16">
+							<a th:href="@{/video/videoPlay(videoId=${item.videoId})}">
+								<figure style="width: 254px; height: 356px">
+									<img class="img-fluid" th:src="${item.thunmbnailUrl}"  style="width: 254px; height: 356px" alt="">
+								</figure>
+								<div class="box-content">
+									<h3 class="title" th:text="${item.videoTitle}"></h3>
+									<h4> <span class="post"><span class="fa fa-clock-o"> </span>5min
+										</span>
+										<span class="post fa fa-heart text-right"></span>
+									</h4>
+								</div>
+								<span class="fa fa-play video-icon" aria-hidden="true"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="pagination">
+					<!-- 分页显示链接 -->
+					<ul>
+						<li th:if="${pageInfo.hasPreviousPage}">
+							<a th:href="@{/video/search(pageNum=${pageInfo.pageNum - 1}, pageSize=${pageInfo.pageSize}, videoTitle=${videoTitle})}">上一页</a>
+						</li>
+						<li th:each="pageNum : ${pageInfo.navigatepageNums}">
+							<a th:if="${pageNum == pageInfo.pageNum}" th:text="${pageNum}" class="active"></a>
+							<a th:unless="${pageNum == pageInfo.pageNum}" th:href="@{/video/search(pageNum=${pageNum}, pageSize=${pageInfo.pageSize}, videoTitle=${videoTitle})}" th:text="${pageNum}"></a>
+						</li>
+						<li th:if="${pageInfo.hasNextPage}">
+							<a th:href="@{/video/search(pageNum=${pageInfo.pageNum + 1}, pageSize=${pageInfo.pageSize}, videoTitle=${videoTitle})}">下一页</a>
+						</li>
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+	</section>
+
+</body>
+
+</html>
+<script th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+
+<script th:src="@{/static/js/theme-change.js}"></script>
+<!-- //theme-change-->
+<script th:src="@{/static/js/owl.carousel.js}"></script>
+<script>
+	$(document).ready(function () {
+
+		var userId = sessionStorage.getItem("userId")
+		$(function () {
+			// 未读消息的获取与更新
+			$.ajax({
+				url: "/Message/messageCount",
+				async: false,
+				data: {"userId": userId},
+				dataType: "JSON",
+				error: function (data) {
+					window.wxc.xcConfirm(data.message, window.wxc.xcConfirm.typeEnum.error);
+				},
+				success: function (data) {
+					// 将data的值显示在特定的<span></span>标签中
+					console.log(data);
+					$('#mySpan').text('(' + data + ')');
+				}
+			})
+		})
+
+		$('.owl-four').owlCarousel({
+			loop: true,
+			margin: 20,
+			nav: false,
+			responsiveClass: true,
+			autoplay: false,
+			autoplayTimeout: 5000,
+			autoplaySpeed: 1000,
+			autoplayHoverPause: false,
+			responsive: {
+				0: {
+					items: 1,
+					nav: false
+				},
+				480: {
+					items: 2,
+					nav: true
+				},
+				667: {
+					items: 2,
+					nav: true
+				},
+				1000: {
+					items: 2,
+					nav: true
+				}
+			}
+		})
+	})
+</script>
+
+<script>
+	$(function () {
+		$('.navbar-toggler').click(function () {
+			$('body').toggleClass('noscroll');
+		})
+	});
+</script>
+<!-- disable body scroll which navbar is in active -->
+
+<!--/MENU-JS-->
+<script>
+	$(window).on("scroll", function () {
+		var scroll = $(window).scrollTop();
+
+		if (scroll >= 80) {
+			$("#site-header").addClass("nav-fixed");
+		} else {
+			$("#site-header").removeClass("nav-fixed");
+		}
+	});
+
+	//Main navigation Active Class Add Remove
+	$(".navbar-toggler").on("click", function () {
+		$("header").toggleClass("active");
+	});
+	$(document).on("ready", function () {
+		if ($(window).width() > 991) {
+			$("header").removeClass("active");
+		}
+		$(window).on("resize", function () {
+			if ($(window).width() > 991) {
+				$("header").removeClass("active");
+			}
+		});
+	});
+</script>

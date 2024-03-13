@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hu.video.mapper.TBlockMapper">
+    <resultMap id="BaseResultMap" type="com.hu.video.entity.TBlock">
+        <id column="block_id" jdbcType="BIGINT" property="blockId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="blocked_id" jdbcType="BIGINT" property="blockedId" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.hu.video.entity.TBlock">
+        insert into t_block (block_id, user_id, blocked_id
+        )
+        values (#{blockId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{blockedId,jdbcType=BIGINT}
+               )
+    </insert>
+    <delete id="DeleteBlockedById">
+        delete from t_block where blocked_id = #{blockedId} and user_id = #{userId}
+    </delete>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from t_block
+        where user_id = #{userId}
+    </select>
+    <select id="selectBlocksId" resultType="java.lang.Long">
+        select user_id from t_user as u
+        where u.user_id in(
+            SELECT b.blocked_id from t_block as b where b.user_id = #{userId})
+    </select>
+    <select id="selectUserId" resultType="java.lang.Long">
+        select user_id from t_user as u
+        where u.user_id in(
+            SELECT b.user_id from t_block as b where b.blocked_id = #{blockedId})
+    </select>
+    <select id="selectOneVerify" resultType="java.lang.Integer">
+        select count(*)
+        from t_block
+        where user_id = #{userId} and blocked_id = #{blockedId}
+    </select>
+</mapper>
